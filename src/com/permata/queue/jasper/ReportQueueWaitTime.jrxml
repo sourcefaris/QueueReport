@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportQueue1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d89360a9-6e7d-41c5-b7cf-db6d76dd41fa">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="48"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="BRANCH" class="java.lang.String"/>
+	<parameter name="WAIT_TIME" class="java.lang.String"/>
+	<parameter name="SERVICE_" class="java.lang.String"/>
+	<parameter name="PERIODE_DATE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT no,  TIMEDIFF(time_call,time) AS 'time_diff',counter_no
+ FROM process WHERE time_call!='0000-00-00 00:00:00' AND TIME_TO_SEC( TIMEDIFF(time_call,time)) > 480
+AND time LIKE CONCAT('','%')]]>
+	</queryString>
+	<field name="no" class="java.lang.Integer"/>
+	<field name="time_diff" class="java.sql.Time"/>
+	<field name="counter_no" class="java.lang.Integer"/>
+	<field name="TIME" class="java.sql.Timestamp"/>
+	<field name="TIME_CALL" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="f83f7f8f-9d82-407e-96ca-17a70a09475e" key="textField" x="0" y="10" width="555" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Laporan Data Nasabah "+$P{SERVICE_}+" yang dilayani > "+$P{WAIT_TIME}+" menit"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="54abc0e9-5660-421f-b172-572e528d8459" key="staticText" x="20" y="22" width="50" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement>
+					<font fontName="Tahoma" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Periode : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f36cffb2-2a25-44e5-818b-2e2262485432" key="staticText" x="20" y="2" width="50" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement>
+					<font fontName="Tahoma" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cabang : ]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="true">
+				<reportElement uuid="ef4410b2-7707-4c0b-ac31-4834460d6138" key="textField" positionType="Float" x="70" y="2" width="300" height="20" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement>
+					<font fontName="Tahoma" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($P{BRANCH}==null?"":$P{BRANCH})+"     "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="a6e8ed8c-9c47-41af-a20f-f0fcdec598c0" key="line" x="0" y="43" width="555" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="b6183d05-6e93-467a-be3d-67a2a9a1bb2e" key="line" x="0" y="0" width="555" height="1"/>
+			</line>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="aaf88522-f725-4202-abdf-e284b20a34f5" key="textField" x="70" y="22" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{PERIODE_DATE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="797a3aeb-a1a5-470c-afcf-378be3198bdd" key="staticText" mode="Transparent" x="40" y="1" width="94" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ Waktu Tunggu ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="10dcfef8-8c52-4c52-b2df-ab52615cad3a" key="staticText" mode="Transparent" x="0" y="1" width="50" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ No. ]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="ca4c4ada-0b36-45b8-a8b1-8644437a1898" key="line" x="0" y="20" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="a57130d2-90ae-4e97-b5b1-1e41faf7dd39" key="staticText" mode="Transparent" x="455" y="1" width="100" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Counter]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9f82aef8-6d96-4d5a-a1f9-6253c5dac110" key="staticText" mode="Transparent" x="134" y="1" width="115" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Mulai Antri]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0cc06643-7c2c-44a6-ac86-3c56e893fc27" key="staticText" mode="Transparent" x="355" y="1" width="100" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[No. Antrian]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2e402cd7-1cab-4acc-b6ed-9a3e01f5c960" key="staticText" mode="Transparent" x="249" y="1" width="106" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Mulai Dilayani]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="2c68af9a-8424-47a8-b9d0-90cfdd27e20f" key="textField" x="455" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{counter_no}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="4e9a806f-5ddd-4824-9676-1d9cb956aacc" key="textField" x="355" y="0" width="100" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="5678d536-24c9-4472-9ef0-14705ecfa0c7" key="textField" x="0" y="0" width="50" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="dee76675-a080-4f72-ba1b-7c43c2ae21ae" key="textField" stretchType="RelativeToBandHeight" x="134" y="0" width="115" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="d6735935-f6bd-4675-8683-abb8031a5bcc" key="textField" stretchType="RelativeToBandHeight" x="249" y="0" width="106" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIME_CALL}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="HH:mm:ss" isBlankWhenNull="true">
+				<reportElement uuid="c4af0a54-02b1-4fec-b3cc-e06422d9110a" key="textField" stretchType="RelativeToBandHeight" x="40" y="0" width="94" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{time_diff}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

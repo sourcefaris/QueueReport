@@ -1,0 +1,21 @@
+<project name="queue-report" default="queue-report" basedir="../bin">
+	<target name="queue-report">
+		<patternset id="queue-report-patternset">
+			<include name="com/permata/queue/common/*.*" />
+			<include name="com/permata/queue/forms/*.*" />
+			<include name="com/permata/queue/jasper/*.*" />
+			<include name="com/permata/queue/main/*.*" />
+			<include name="com/permata/queue/report/engine/*.*" />
+			<include name="com/permata/queue/res/*.*" />
+		</patternset>
+		<jar destfile="../build/queue-report-tmp.jar">
+			<fileset dir="." casesensitive="yes">
+				<patternset refid="queue-report-patternset" />
+			</fileset>
+		</jar>
+		<signjar jar="../build/queue-report-tmp.jar" alias="permata"
+			keystore="../scripts/.keystore" storepass="password" verbose="false"
+			signedjar="../build/queue-report.jar" />
+			
+	</target>
+</project>
